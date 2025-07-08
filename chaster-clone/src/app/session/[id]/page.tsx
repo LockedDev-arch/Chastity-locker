@@ -56,18 +56,18 @@ export default function SessionPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-        <p className="text-lg">Loading session...</p>
+      <div className="min-h-screen bg-[#343541] text-pink-200 flex flex-col items-center justify-center p-6 space-y-4">
+        <p className="text-lg text-pink-200">Loading session...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-6">
-      <h1 className="text-3xl font-bold mb-4">Lock Session</h1>
-      <p className="text-lg mb-2">Session ID: {id}</p>
+    <div className="min-h-screen bg-[#343541] text-pink-200 flex flex-col items-center justify-center p-6 space-y-4">
+      <h1 className="text-3xl font-bold mb-4 text-pink-200">Lock Session</h1>
+      <p className="text-lg mb-2 text-pink-100">Session ID: {id}</p>
       {remainingTime !== null ? (
-        <p className="text-xl font-mono mb-4">
+        <p className="text-xl font-mono mb-4 text-pink-100">
           {isLocked ? `Locked: ${formatTime(remainingTime)}` : 'Unlocked'}
         </p>
       ) : (

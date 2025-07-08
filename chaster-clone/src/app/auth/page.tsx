@@ -26,10 +26,7 @@ export default function AuthPage() {
     }
 
     setAuthing(true);
-    const { error: signupError } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const { error: signupError } = await supabase.auth.signUp({ email, password });
 
     if (signupError) {
       if (
@@ -49,38 +46,43 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-6 space-y-4">
-      <h1 className="text-3xl font-bold">Register</h1>
+    <div className="min-h-screen bg-[#343541] text-pink-200 flex flex-col items-center justify-center p-6 space-y-4">
+      <h1 className="text-3xl font-bold text-pink-200">Register</h1>
+
       <input
         type="email"
         value={email}
         onChange={e => setEmail(e.target.value)}
         placeholder="you@example.com"
-        className="p-2 text-black rounded w-full max-w-md"
+        className="w-full max-w-md p-2 placeholder-pink-200 text-white border-2 border-pink-200 rounded"
       />
+
       <input
         type="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
         placeholder="Password"
-        className="p-2 text-black rounded w-full max-w-md"
+        className="w-full max-w-md p-2 placeholder-pink-200 text-white border-2 border-pink-200 rounded"
       />
+
       <input
         type="password"
         value={confirmPassword}
         onChange={e => setConfirmPassword(e.target.value)}
         placeholder="Confirm Password"
-        className="p-2 text-black rounded w-full max-w-md"
+        className="w-full max-w-md p-2 placeholder-pink-200 text-white border-2 border-pink-200 rounded"
       />
+
       <button
         onClick={handleSignup}
         disabled={authing}
-        className="bg-purple-600 px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50"
+        className="bg-purple-300 px-6 py-2 rounded hover:bg-purple-400 disabled:opacity-50 text-white transition"
       >
         {authing ? 'Registering...' : 'Register'}
       </button>
-      {error && <p className="text-red-500">{error}</p>}
-      {message && <p className="text-green-500">{message}</p>}
+
+      {error && <p className="text-red-400">{error}</p>}
+      {message && <p className="text-green-400">{message}</p>}
     </div>
   );
 }

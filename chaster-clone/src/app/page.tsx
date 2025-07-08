@@ -35,21 +35,22 @@ export default function Home() {
   };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h1 className="text-3xl font-bold mb-4 text-center">Start a Lock Session</h1>
+    <div className="min-h-screen bg-[#343541] text-pink-200 flex flex-col items-center justify-center p-6 space-y-4">
+      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        <h1 className="text-3xl font-bold mb-4  text-center">
+          Start a Lock Session
+        </h1>
         <input
           type="number"
           value={lockMinutes}
           onChange={(e) => setLockMinutes(Number(e.target.value))}
           placeholder="Enter minutes"
-          className="px-4 py-2 text-black rounded mb-4"
+          className="w-1/2 p-2 bg-gray-700 placeholder-pink-200 text-white border-2 border-pink-200 rounded mx-auto"
         />
         <button
           onClick={handleStartLock}
           disabled={loading || lockMinutes <= 0}
-          className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition disabled:opacity-50"
-        >
+          className="w-1/2 max-w-md p-2 bg-purple-400 px-6 py-2 rounded hover:bg-purple-600 text-white transition mx-auto">
           {loading ? "Creating..." : "Lock Me In"}
         </button>
         {error && <p className="text-red-400 mt-4">{error}</p>}

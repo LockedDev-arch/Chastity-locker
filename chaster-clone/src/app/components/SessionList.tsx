@@ -72,16 +72,17 @@ export default function SessionList({ refreshFlag }: Props) {
 
   return (
     <div className="w-full mt-6 space-y-4">
+      <h2 className="text-3xl font-bold mb-2 text-white text-center">Session History</h2>
       {sessions.map((s) => (
         <div
           key={s.id}
-          className={`bg-gray-800/90 rounded-lg p-4 shadow flex flex-col gap-1 border-l-4 ${
+          className={`bg-gray-700 rounded-lg p-4 shadow flex flex-col gap-1 border-l-4 ${
             s.status === 'active'
-              ? 'border-purple-500'
+              ? 'border-purple-400'
               : s.status === 'completed'
               ? 'border-green-500'
-              : s.status === 'expired'
-              ? 'border-yellow-500'
+              : s.status === 'failed'
+              ? 'border-red-500'
               : 'border-gray-700'
           }`}
         >

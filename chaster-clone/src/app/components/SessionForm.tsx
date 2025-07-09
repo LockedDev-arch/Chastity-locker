@@ -60,14 +60,15 @@ export default function SessionForm({ onSessionCreated }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-gray-800 rounded p-6 flex flex-col gap-4 shadow-xl max-w-md w-full">
-      <h2 className="text-xl font-bold mb-2">Start a New Session</h2>
+    <div>
+    <h2 className="text-3xl font-bold mb-2 text-center text-white">Start a New Session</h2>
+    <form onSubmit={handleSubmit} className="bg-gray-700 rounded p-6 flex flex-col gap-4 shadow-xl mx-auto text-white">
       <label className="flex flex-col">
         Duration (minutes)
         <input
           type="number"
           min="1"
-          className="mt-1 rounded p-2 text-black"
+          className="mt-1 rounded p-2 border-2 border-purple-400/40 bg-gray-600"
           value={duration}
           onChange={e => setDuration(e.target.value)}
           placeholder="60"
@@ -76,7 +77,7 @@ export default function SessionForm({ onSessionCreated }: Props) {
       <label className="flex flex-col">
         Notes (optional)
         <textarea
-          className="mt-1 rounded p-2 text-black"
+          className="mt-1 rounded p-2 border-2 border-purple-400/40 bg-gray-600"
           value={notes}
           onChange={e => setNotes(e.target.value)}
           placeholder="For your keyholder or reminders…"
@@ -84,7 +85,7 @@ export default function SessionForm({ onSessionCreated }: Props) {
       </label>
       <button
         type="submit"
-        className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded font-bold"
+        className="bg-purple-400 hover:bg-purple-600 px-4 py-2 rounded font-bold text-white"
         disabled={submitting}
       >
         {submitting ? 'Starting...' : 'Start Session'}
@@ -92,5 +93,6 @@ export default function SessionForm({ onSessionCreated }: Props) {
       {error && <p className="text-red-400">{error}</p>}
       {success && <p className="text-green-400">{success}</p>}
     </form>
+    </div>
   );
 }

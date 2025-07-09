@@ -1,60 +1,69 @@
+
 'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function Home() {
-  const [lockMinutes, setLockMinutes] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-
-  const handleStartLock = async () => {
-    setLoading(true);
-    setError(null);
-
-    const endTime = Date.now() + lockMinutes * 60 * 1000;
-
-    const { data, error } = await supabase
-      .from("lock_sessions")
-      .insert([{ end_time: endTime, updated_by: "wearer" }])
-      .select()
-      .single();
-
-    setLoading(false);
-
-    if (error) {
-      setError("Failed to create session. Try again.");
-      return;
-    }
-
-    if (data?.id) {
-      router.push(`/session/${data.id}`);
-    }
-  };
-
+export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#343541] text-pink-200 flex flex-col items-center justify-center p-6 space-y-4">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1 className="text-3xl font-bold mb-4  text-center">
-          Start a Lock Session
-        </h1>
-        <input
-          type="number"
-          value={lockMinutes}
-          onChange={(e) => setLockMinutes(Number(e.target.value))}
-          placeholder="Enter minutes"
-          className="w-1/2 p-2 bg-gray-700 placeholder-pink-200 text-white border-2 border-pink-200 rounded mx-auto"
-        />
-        <button
-          onClick={handleStartLock}
-          disabled={loading || lockMinutes <= 0}
-          className="w-1/2 max-w-md p-2 bg-purple-400 px-6 py-2 rounded hover:bg-purple-600 text-white transition mx-auto">
-          {loading ? "Creating..." : "Lock Me In"}
-        </button>
-        {error && <p className="text-red-400 mt-4">{error}</p>}
-      </main>
-    </div>
+    <main className="min-h-screen bg-[#343541] text-pink-200 flex flex-col items-center p-8">
+      {/* Hero Section */}
+      <section className="w-full max-w-4xl text-center py-20">
+        <h1 className="text-5xl font-bold mb-4">Welcome to Chastity Hub</h1>
+        <p className="text-xl mb-8">
+          Embrace the beauty of chastity with secure and elegant sessions.
+        </p>
+        <Link href="/auth">
+          <button className="bg-pink-400 text-white px-6 py-3 rounded-full hover:bg-pink-500 transition">
+            Get Started
+          </button>
+        </Link>
+      </section>
+
+      {/* Feature Graphics */}
+      <section className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
+        <div className="flex flex-col items-center">
+          <Image
+            src="/svgs/secure.svg"
+            alt="Secure Lock"
+            width={120}
+            height={120}
+          />
+          <h3 className="mt-4 text-lg font-semibold">Ultimate Security</h3>
+          <p className="mt-2 text-center">
+            Complete control over your lock sessions.
+          </p>
+        </div>
+        <div className="flex flex-col items-center">
+          <Image
+            src="/images/beauty.svg"
+            alt="Elegant Design"
+            width={120}
+            height={120}
+          />
+          <h3 className="mt-4 text-lg font-semibold">Elegant Design</h3>
+          <p className="mt-2 text-center">
+            A sleek interface with pastel accents.
+          </p>
+        </div>
+        <div className="flex flex-col items-center">
+          <Image
+            src="/images/privacy.svg"
+            alt="Privacy First"
+            width={120}
+            height={120}
+          />
+          <h3 className="mt-4 text-lg font-semibold">Privacy First</h3>
+          <p className="mt-2 text-center">
+            Your data and sessions remain confidential.
+          </p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="text-sm text-pink-400">
+        © {new Date().getFullYear()} Chastity Hub. All rights reserved.
+      </footer>
+    </main>
   );
 }

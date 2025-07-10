@@ -1,67 +1,85 @@
 
 'use client';
 
-import Image from 'next/image';
+import SecureIcon from '@/svgs/secure.svg';
+import BeautyIcon from '@/svgs/beauty.svg';
+import PrivacyIcon from '@/svgs/privacy.svg';
 import Link from 'next/link';
+import type { ReactNode, FC, SVGProps } from 'react';
+
+const features: { icon: FC<SVGProps<SVGSVGElement>>; title: string; description: string }[] = [
+  {
+    icon: SecureIcon,
+    title: 'Ultimate Security',
+    description: 'Complete control over your lock sessions.',
+  },
+  {
+    icon: BeautyIcon,
+    title: 'Elegant Design',
+    description: 'A sleek interface with pastel accents.',
+  },
+  {
+    icon: PrivacyIcon,
+    title: 'Privacy First',
+    description: 'Your data and sessions remain confidential.',
+  },
+];
+
+const Hero: FC<{ title: string; subtitle: string }> = ({ title, subtitle }) => (
+  <header className="text-center bg-gray-400 p-10 rounded-lg shadow-lg">
+    <h1 className="text-5xl font-bold mb-4">{title}</h1>
+    <p className="text-xl">{subtitle}</p>
+  </header>
+);
+
+const CTAButton: FC<{ href: string; children: ReactNode }> = ({ href, children }) => (
+  <Link href={href} aria-label={`${children}`}>
+    <a className="bg-purple-400 text-white px-6 py-3 rounded-full hover:bg-purple-600 transition">
+      {children}
+    </a>
+  </Link>
+);
+
+const FeatureTile: FC<{ icon: FC<SVGProps<SVGSVGElement>>; title: string; description: string }> = ({
+  icon: Icon,
+  title,
+  description,
+}) => (
+  <div className="flex flex-col items-center text-center space-y-2">
+    <Icon className="w-24 h-24 text-purple-400 fill-current" aria-hidden="true" />
+    <h2 className="text-xl font-semibold">{title}</h2>
+    <p>{description}</p>
+  </div>
+);
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#343541] text-pink-200 flex flex-col items-center p-8">
-      {/* Hero Section */}
-      <section className="w-full max-w-4xl text-center py-20">
-        <h1 className="text-5xl font-bold mb-4">Welcome to Chastity Hub</h1>
-        <p className="text-xl mb-8">
-          Embrace the beauty of chastity with secure and elegant sessions.
-        </p>
-        <Link href="/auth">
-          <button className="bg-pink-400 text-white px-6 py-3 rounded-full hover:bg-pink-500 transition">
-            Get Started
-          </button>
-        </Link>
-      </section>
-
-      {/* Feature Graphics */}
-      <section className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
-        <div className="flex flex-col items-center">
-          <Image
-            src="/svgs/secure.svg"
-            alt="Secure Lock"
-            width={120}
-            height={120}
-          />
-          <h3 className="mt-4 text-lg font-semibold">Ultimate Security</h3>
-          <p className="mt-2 text-center">
-            Complete control over your lock sessions.
-          </p>
+    <main className="min-h-screen bg-backdrop text-white font-sans flex flex-col">
+      <div className="container mx-auto px-4 py-8 flex-1 space-y-12">
+        <Hero
+          title="Welcome!"
+          subtitle="Embrace the beauty of chastity with secure and elegant sessions."
+        />
+        <div className="flex justify-center">
+          <CTAButton href="/auth">Get Started</CTAButton>
         </div>
-        <div className="flex flex-col items-center">
-          <Image
-            src="/images/beauty.svg"
-            alt="Elegant Design"
-            width={120}
-            height={120}
-          />
-          <h3 className="mt-4 text-lg font-semibold">Elegant Design</h3>
-          <p className="mt-2 text-center">
-            A sleek interface with pastel accents.
-          </p>
-        </div>
-        <div className="flex flex-col items-center">
-          <Image
-            src="/images/privacy.svg"
-            alt="Privacy First"
-            width={120}
-            height={120}
-          />
-          <h3 className="mt-4 text-lg font-semibold">Privacy First</h3>
-          <p className="mt-2 text-center">
-            Your data and sessions remain confidential.
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="text-sm text-pink-400">
+        <section aria-labelledby="features-heading">
+          <h2 id="features-heading" className="sr-only">
+            Features
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {features.map((f) => (
+              <FeatureTile
+                key={f.title}
+                icon={f.icon}
+                title={f.title}
+                description={f.description}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+      <footer className="bg-backdrop text-center text-sm py-4">
         © {new Date().getFullYear()} Chastity Hub. All rights reserved.
       </footer>
     </main>

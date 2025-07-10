@@ -1,7 +1,4 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
-
 type Session = {
   id: string;
   duration_minutes: number;
@@ -10,7 +7,6 @@ type Session = {
   started_at: string;
   ends_at: string;
 };
-
 
 type Props = {
   sessions: Session[];
